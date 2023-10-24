@@ -1,8 +1,8 @@
 let textVar = "hello";
-setup(){
+function setup(){
   
 }
 
-draw(){
+function draw(){
   console.log(textVar);
 }
