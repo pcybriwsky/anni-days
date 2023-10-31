@@ -36,7 +36,7 @@ function createPaper() {
   let strokeMin = 0.01
   let strokeMax = 0.015
   console.log(windowWidth)
-  if(windowWidth < 1800){
+  if(windowWidth < 3000){
     count = 200000
     bigR = 100
     strokeMin = 0.15
@@ -93,7 +93,7 @@ function setup() {
     createCanvas(windowWidth, 1800);
   }
   
-  // pixelDensity(2);
+  pixelDensity(2);
   palette = palettes[Math.floor(random(0, palettes.length))];
 
   daysBetween = Math.floor(numDaysBetween(startDate));
