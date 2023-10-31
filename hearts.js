@@ -2,8 +2,10 @@ const hearts = [];
 const heartQualities = [];
 const palettes = [
   ["#373F51", "#bc4749", "#A2E3C4", "#F0F7F4", "#ff6666"],
-  ["#E4DBC9", "#963D5A", "#4C191B", "#c589e8", "#519872"],
-  // ["#FEFFEA", "#46acc2", "#498c8a", "#4D5382", "#C97064"],
+  ["#E4DBC9", "#963D5A", "#4C191B" , "#519872", "#c589e8"],
+  ["#963D5A", "#E4DBC9", "#4C191B", "#c589e8", "#519872"],
+  ["#171a21", "#ffa69e", "#86a59c", "#86ce94", "#f2a65a"],
+  ["#5da271", "#fcfcff", "#ef8354", "#4f5d75", "#2d3142"],
 ];
 let palette = null;
 let a = 0;
@@ -13,7 +15,7 @@ let rows = 1;
 let columns = 5;
 let madeWithLoveHeart;
 let logoHeart = [];
-let startDate = 1666368000
+let startDate = 1664494200 // September 29th, 2022
 let paperTexture;
 let daysBetween;
 let sourceSerif;
@@ -29,16 +31,30 @@ function createPaper() {
   paperTexture.clear()
   paperTexture.noFill();
   paperTexture.stroke(palette[2])
-  for(let p = 0; p < 70000; p++){
+  let count = 35000
+  let bigR = 100
+  if(width < 500){
+    count = 15000
+    bigR = 40
+  }
+    
+  for(let p = 0; p < count; p++){
     paperTexture.strokeWeight(random(0.01, 0.015))
-    let radius = random(1, 100);
+    let radius = random(1, bigR);
+    paperTexture.ellipse(random(width), random(height), radius, radius)
+  }
+  
+  paperTexture.stroke(palette[3])
+  for(let p = 0; p < count; p++){
+    paperTexture.strokeWeight(random(0.01, 0.015))
+    let radius = random(1, bigR);
     paperTexture.ellipse(random(width), random(height), radius, radius)
   }
   
   paperTexture.stroke(palette[1])
-  for(let p = 0; p < 70000; p++){
+  for(let p = 0; p < (2*count); p++){
     paperTexture.strokeWeight(random(0.01, 0.015))
-    let radius = random(1, 100);
+    let radius = random(1, bigR);
     paperTexture.ellipse(random(width), random(height), radius, radius)
   }
 }
@@ -53,7 +69,7 @@ function setup() {
     createCanvas(windowWidth, 1800);
   }
   
-  pixelDensity(3);
+  pixelDensity(2);
   palette = palettes[Math.floor(random(0, palettes.length))];
 
   daysBetween = Math.floor(numDaysBetween(startDate));
@@ -63,7 +79,7 @@ function setup() {
   numHearts = daysBetween;
   columns = Math.ceil(width/200);
   rows = Math.ceil(numHearts/columns);
-  shuffle(palette, true);
+  // shuffle(palette, true);
 
   for (let x = 0; x < numHearts; x++) {
     hearts.push([]);
@@ -205,7 +221,7 @@ function draw() {
     image(paperTexture, 0, 0)
   }
 
-  a += 0.08;
+  a += 0.16;
   messageForK()
 }
 
@@ -214,7 +230,7 @@ function messageForK(){
   textSize(20)
   noStroke();
   fill(palette[1])
-  let daysText = `Oh how love grows over ${daysBetween} days`
+  let daysText = `${daysBetween} days of love and counting`
   textAlign(CENTER, CENTER)
   text(daysText, width/2, padding/2)
   text("Happy everyday, k :D", width/2, height - padding/2)
@@ -222,8 +238,6 @@ function messageForK(){
 
 
 
-function keyPressed() {
-  if (key === "s") {
+function mouseClicked() {
     saveCanvas("hearts.png");
-  }
 }
