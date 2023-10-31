@@ -174,41 +174,41 @@ function draw() {
   }
 
   let logoQualities = heartQualities[madeWithLoveHeart];
-  push();
-  translate(width / 2, height - 2*padding);
-  rotate(logoQualities.rotation);
+//   push();
+//   translate(width / 2, height - 2*padding);
+//   rotate(logoQualities.rotation);
 
-  noStroke();
-  fill(palette[logoQualities.heartColor]);
-  beginShape();
-  for (let v of logoHeart) {
-    // point(v.x, v.y + 0);
-    vertex(v.x, v.y);
-  }
-  endShape();
+//   noStroke();
+//   fill(palette[logoQualities.heartColor]);
+//   // beginShape();
+//   // for (let v of logoHeart) {
+//   //   // point(v.x, v.y + 0);
+//   //   vertex(v.x, v.y);
+//   // }
+//   // endShape();
 
-  stroke(palette[logoQualities.outlineColor]);
+//   stroke(palette[logoQualities.outlineColor]);
 
-  strokeWeight(logoQualities.strokeThickness);
-  noFill();
-  beginShape();
-  for (let v of logoHeart) {
-    // point(v.x, v.y + 0);
-    point(v.x + 0.5 * noise(v.x, v.y), v.y + 0.5 * noise(v.x, v.y));
-  }
-  endShape();
+//   strokeWeight(logoQualities.strokeThickness);
+//   noFill();
+//   // beginShape();
+//   // for (let v of logoHeart) {
+//   //   // point(v.x, v.y + 0);
+//   //   point(v.x + 0.5 * noise(v.x, v.y), v.y + 0.5 * noise(v.x, v.y));
+//   // }
+//   // endShape();
 
-  const r = height / (logoQualities.radiusMulti) / 2;
-  const x = r * 10 * pow(sin(a), 3);
-  const y =
-    -r *
-      (logoQualities.xMulti * cos(a) -
-        logoQualities.multi1 * cos(2 * a) -
-        logoQualities.multi2 * cos(3 * a) -
-        logoQualities.multi3 * cos(2 * a)) +
-    random(0); // first coefficient changes bottom, second changes top
-  logoHeart.push(createVector(x, y));
-  pop();
+//   const r = height / (logoQualities.radiusMulti) / 2;
+//   const x = r * 10 * pow(sin(a), 3);
+//   const y =
+//     -r *
+//       (logoQualities.xMulti * cos(a) -
+//         logoQualities.multi1 * cos(2 * a) -
+//         logoQualities.multi2 * cos(3 * a) -
+//         logoQualities.multi3 * cos(2 * a)) +
+//     random(0); // first coefficient changes bottom, second changes top
+//   logoHeart.push(createVector(x, y));
+//   pop();
 
   
 
