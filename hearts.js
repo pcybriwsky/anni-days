@@ -33,29 +33,51 @@ function createPaper() {
   paperTexture.stroke(palette[2])
   let count = 35000
   let bigR = 100
-  if(width < 500){
-    count = 15000
-    bigR = 40
-  }
+  let strokeMin = 0.01
+  let strokeMax = 0.015
+  if(width < 650){
+    count = 200000
+    bigR = 100
+    strokeMin = 0.15
+    strokeMax = 0.4
+    paperTexture.stroke(palette[2])
+    for(let p = 0; p < count; p++){
+      paperTexture.strokeWeight(random(strokeMin, strokeMax))
+      paperTexture.point(random(width), random(height))
+    }
+    paperTexture.stroke(palette[1])
+    for(let p = 0; p < count; p++){
+      paperTexture.strokeWeight(random(strokeMin, strokeMax))
+      paperTexture.point(random(width), random(height))
+    }
     
+    paperTexture.stroke(palette[3])
+    for(let p = 0; p < count; p++){
+      paperTexture.strokeWeight(random(strokeMin, strokeMax))
+      paperTexture.point(random(width), random(height))
+    }
+  }
+  
+  else{
   for(let p = 0; p < count; p++){
-    paperTexture.strokeWeight(random(0.01, 0.015))
+    paperTexture.strokeWeight(random(strokeMin, strokeMax))
     let radius = random(1, bigR);
     paperTexture.ellipse(random(width), random(height), radius, radius)
   }
   
   paperTexture.stroke(palette[3])
   for(let p = 0; p < count; p++){
-    paperTexture.strokeWeight(random(0.01, 0.015))
+    paperTexture.strokeWeight(random(strokeMin, strokeMax))
     let radius = random(1, bigR);
     paperTexture.ellipse(random(width), random(height), radius, radius)
   }
   
   paperTexture.stroke(palette[1])
   for(let p = 0; p < (2*count); p++){
-    paperTexture.strokeWeight(random(0.01, 0.015))
+    paperTexture.strokeWeight(random(strokeMin, strokeMax))
     let radius = random(1, bigR);
     paperTexture.ellipse(random(width), random(height), radius, radius)
+  }
   }
 }
 
