@@ -35,7 +35,8 @@ function createPaper() {
   let bigR = 100
   let strokeMin = 0.01
   let strokeMax = 0.015
-  if(width < 650){
+  console.log(windowWidth)
+  if(windowWidth < 800){
     count = 200000
     bigR = 100
     strokeMin = 0.15
