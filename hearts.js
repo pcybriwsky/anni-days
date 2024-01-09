@@ -186,7 +186,7 @@ function preload() {
 }
 
 function setup() {
-  pixelDensity(2);
+  pixelDensity(1);
   textFont(sourceSerif);
   if (windowHeight > 1800) {
     createCanvas(windowWidth, windowHeight);
@@ -228,8 +228,8 @@ function draw() {
   // stroke(0);
   padding = height / 20;
   messageForK();
-  let fMulti = 500;
-  let weight = 1000;
+  let fMulti = 2000;
+  let weight = 4000;
 
   let i = 0;
 
