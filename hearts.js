@@ -223,72 +223,70 @@ function setup() {
 }
 
 let padding;
+let currentHeart = 0;
+let completed = false;
 
 function draw() {
-  // stroke(0);
   padding = height / 20;
-  messageForK();
-  let fMulti = 2000;
-  let weight = 4000;
 
-  let i = 0;
+  // Only process one heart at a time
+  if (currentHeart < numHearts) {
+    let fMulti = 2000;
+let weight = 4000;
 
-  // Order
-  let poly = null;
-  for (let k = 0; k <= rows; k++) {
-    for (let h = 0; h <= columns; h++) {
-      if (((k*columns) + h) < numHearts) {
-        let currentInkLine = lines[lineInterval % totalLines];
-        if (offset[i] == undefined) {
-          offset.push(map((k*columns) + h, 0, rows * columns, 10, 100));
-        }
-        currentInkLine.setWeight(weight);
-        let x = ((width - 2 * padding) * (h + 1)) / (columns + 1) + padding/2;
-        let y = ((height - 2 * padding) * (k + 1)) / (rows + 1) + padding;
+// Assuming numHearts is defined somewhere in your code
+// let numHearts = 20; // Adjust the number of hearts as needed
 
-        currentInkLine.setPointsFunction(x, y, x + offset[i], y, weight);
-        lineInterval++;
-        if (frameCount * fMulti > weight) {
-          let v = [];
-          let step = Math.round(currentInkLine.points.length / 20);
-          for (let l = 0; l < currentInkLine.points.length; l += step) {
-            angleMode(RADIANS);
-            v.push(
-              createVector(
-                currentInkLine.points[l].x,
-                currentInkLine.points[l].y
-              )
-            );
-          }
-          poly = new Poly(v);
-          waterColour(
-            poly,
-            currentInkLine.colors[1],
-            currentInkLine.colors[0],
-            layers
-          );
-        }
+// Set the number of columns fixed at 6
+let columns = 7;
 
-        angleMode(DEGREES);
-        currentInkLine.animateLine(
+// Calculate rows based on the fixed number of columns
+let rows = Math.ceil(numHearts / columns);
+
+// For positioning calculation within the draw loop
+let k = Math.floor(currentHeart / columns);
+let h = currentHeart % columns;
+
+    
+    if(offset[currentHeart] == undefined){
+      offset.push(map((k*columns) + h, 0, rows * columns, 10, 100));
+    }
+
+    let x = ((width - 2 * padding) * (h + 1)) / (columns + 1) + padding / 2;
+    let y = ((height - 2 * padding) * (k + 1)) / (rows + 1) + padding;
+    
+    // console.log(offset[currentHeart])
+
+    let currentInkLine = lines[currentHeart % lines.length];
+    if (!completed) {
+      currentInkLine.setWeight(weight);
+      currentInkLine.setPointsFunction(x, y, x + offset[currentHeart], y, weight);
+      completed = (frameCount * fMulti > weight);
+      currentInkLine.animateLine(
           x,
           y,
-          x + offset[i],
+          x + offset[currentHeart],
           y,
           (frameCount - 1) * fMulti,
           frameCount * fMulti
         );
-        i++;
-      }
     }
-  }
 
-  lineInterval = 0;
-  if (frameCount * fMulti > weight) {
-    layers += 5;
-    if (layers > 15) {
-      noLoop();
+    if (completed) {
+      let v = [];
+      let step = Math.round(currentInkLine.points.length / 20);
+      for (let l = 0; l < currentInkLine.points.length; l += step) {
+        v.push(createVector(currentInkLine.points[l].x, currentInkLine.points[l].y));
+      }
+      let poly = new Poly(v);
+      waterColour(poly, currentInkLine.colors[1], currentInkLine.colors[0], layers);
+
+      currentHeart++; // Move to next heart
+      completed = false; // Reset completed flag
+      frameCount = 0; // Reset frame count if necessary or manage time differently
     }
+  } else {
+    noLoop(); // Stop the draw loop if all hearts are processed
   }
 }
 
