@@ -227,6 +227,7 @@ let currentHeart = 0;
 let completed = false;
 
 function draw() {
+  // background(255); // Clear the canvas or set a background color
   padding = height / 20;
 
   // Only process one heart at a time
@@ -238,10 +239,6 @@ let weight = 4000;
 // let numHearts = 20; // Adjust the number of hearts as needed
 
 // Set the number of columns fixed at 6
-let columns = 7;
-
-// Calculate rows based on the fixed number of columns
-let rows = Math.ceil(numHearts / columns);
 
 // For positioning calculation within the draw loop
 let k = Math.floor(currentHeart / columns);
