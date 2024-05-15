@@ -232,8 +232,8 @@ function draw() {
 
   // Only process one heart at a time
   if (currentHeart < numHearts) {
-    let fMulti = 2000;
-let weight = 4000;
+    let fMulti = 4000;
+let weight = 8000;
 
 // Assuming numHearts is defined somewhere in your code
 // let numHearts = 20; // Adjust the number of hearts as needed
@@ -243,13 +243,15 @@ let weight = 4000;
 // For positioning calculation within the draw loop
 let k = Math.floor(currentHeart / columns);
 let h = currentHeart % columns;
-
+if(currentHeart == 0){
+  messageForK()
+}
     
     if(offset[currentHeart] == undefined){
-      offset.push(map((k*columns) + h, 0, rows * columns, 10, 100));
+      offset.push(map((k*columns) + h + 0.5, 0, rows * columns, 10, 100));
     }
 
-    let x = ((width - 2 * padding) * (h + 1)) / (columns + 1) + padding / 2;
+    let x = ((width - 2 * padding) * (h + 1)) / (columns + 1) + padding;
     let y = ((height - 2 * padding) * (k + 1)) / (rows + 1) + padding;
     
     // console.log(offset[currentHeart])
